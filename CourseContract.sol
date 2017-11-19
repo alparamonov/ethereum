@@ -38,7 +38,7 @@ contract CourseContract {
         }
 
         if (course.attendees.length == course.maxAttendees) {
-            start();
+            startInternal();
         }
     }
 
@@ -46,7 +46,10 @@ contract CourseContract {
 
     function start() public {
         require(msg.sender == course.trainer);
+        startInternal();
+    }
 
+    function startInternal() private {
         Transfer(msg.sender, course.trainer, course.feeInWei); 
 
         Start(course.attendees);
